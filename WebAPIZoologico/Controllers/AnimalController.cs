@@ -9,7 +9,7 @@ namespace WebAPIZoologico.Controllers
 	[ApiController]
 	public class AnimalController : ControllerBase
 	{
-		private Mocks mocks;
+		public Mocks mocks;
 		public AnimalController()
 		{
 			mocks =Mocks.ObtenerInstancia();

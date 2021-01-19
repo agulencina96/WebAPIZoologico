@@ -6,7 +6,7 @@ using WebAPIZoologico.Models;
 
 namespace Tests
 {
-	public class Tests
+	public class ModelTests
 	{
         private List<AnimalCarnivoro> _animalesCarnivoros;
         private List<AnimalHerbivoro> _animalesHerbivoros;
@@ -25,10 +25,8 @@ namespace Tests
 		public void CalcularAlimentoSinAnimalesCarnivoros()
 		{
 			var animalesHerbivorosReptiles = new List<Animal>();
-			_animalesReptiles.AddRange(MockFactoryReptiles());
-			_animalesHerbivoros.AddRange(MockFactoryHerbivoros());
-			animalesHerbivorosReptiles.AddRange(_animalesReptiles);
-			animalesHerbivorosReptiles.AddRange(_animalesHerbivoros);
+			animalesHerbivorosReptiles.AddRange(MockFactoryReptiles());
+			animalesHerbivorosReptiles.AddRange(MockFactoryHerbivoros());
 			var result = animalesHerbivorosReptiles.Sum(a => a.CalcularAlimento());
 			Assert.AreEqual(result, 11888.57D);
 		}
@@ -37,10 +35,8 @@ namespace Tests
 		public void CalcularAlimentoSinAnimalesHerbivoros()
 		{
 			var animalesCarnivorosReptiles = new List<Animal>();
-			_animalesReptiles.AddRange(MockFactoryReptiles());
-			_animalesCarnivoros.AddRange(MockFactoryCarnivoros());
-			animalesCarnivorosReptiles.AddRange(_animalesReptiles);
-			animalesCarnivorosReptiles.AddRange(_animalesCarnivoros);
+			animalesCarnivorosReptiles.AddRange(MockFactoryReptiles());
+			animalesCarnivorosReptiles.AddRange(MockFactoryCarnivoros());
 			var result = animalesCarnivorosReptiles.Sum(a => a.CalcularAlimento());
 			
 			Assert.AreEqual(Math.Round(result, 2), 638.57D);
@@ -51,10 +47,8 @@ namespace Tests
 		public void CalcularAlimentoSinAnimalesReptiles()
 		{
 			var animalesCarnivorosHerbivoros = new List<Animal>();
-			_animalesHerbivoros.AddRange(MockFactoryHerbivoros());
-			_animalesCarnivoros.AddRange(MockFactoryCarnivoros());
-			animalesCarnivorosHerbivoros.AddRange(_animalesHerbivoros);
-			animalesCarnivorosHerbivoros.AddRange(_animalesCarnivoros);
+			animalesCarnivorosHerbivoros.AddRange(MockFactoryHerbivoros());
+			animalesCarnivorosHerbivoros.AddRange(MockFactoryCarnivoros());
 			var result = animalesCarnivorosHerbivoros.Sum(a => a.CalcularAlimento());
 			Assert.AreEqual(result, 12150D);
 		}
@@ -87,64 +81,14 @@ namespace Tests
 		public void CalcularAlimentoTodos()
 		{
 			var animales = new List<Animal>();
-			_animalesHerbivoros.AddRange(MockFactoryHerbivoros());
-			_animalesCarnivoros.AddRange(MockFactoryCarnivoros());
-			_animalesReptiles.AddRange(MockFactoryReptiles());
-			animales.AddRange(_animalesHerbivoros);
-			animales.AddRange(_animalesCarnivoros);
-			animales.AddRange(_animalesReptiles);
+			animales.AddRange(MockFactoryHerbivoros());
+			animales.AddRange(MockFactoryCarnivoros());
+			animales.AddRange(MockFactoryReptiles());
 			var result = animales.Sum(a => a.CalcularAlimento());
 			Assert.AreEqual(result, 12338.57D);
 
 		}
 
-		[Test]
-		public void CalcularCantidadTotalCarne()
-		{
-			var carnesTotales = 0D;
-			var animales = new List<Animal>();
-			_animalesCarnivoros.AddRange(MockFactoryCarnivoros());
-			_animalesReptiles.AddRange(MockFactoryReptiles());
-			animales.AddRange(_animalesCarnivoros);
-			animales.AddRange(_animalesReptiles);
-			foreach (var animal in animales)
-			{
-				if (animal.GetType().ToString() == "WebAPIZoologico.Models.AnimalCarnivoro")
-				{
-					carnesTotales += animal.CalcularAlimento();
-				}
-				if (animal.GetType().ToString() == "WebAPIZoologico.Models.AnimalReptil")
-				{
-					carnesTotales += animal.CalcularAlimento() / 2;
-				}
-			}
-			Assert.AreEqual(carnesTotales, 732,855D);
-
-		}
-
-		[Test]
-		public void CalcularCantidadTotalHierbas()
-		{
-			var hierbasTotales = 0D;
-			var animales = new List<Animal>();
-			_animalesHerbivoros.AddRange(MockFactoryHerbivoros());
-			_animalesReptiles.AddRange(MockFactoryReptiles());
-			animales.AddRange(_animalesHerbivoros);
-			animales.AddRange(_animalesReptiles);
-			foreach (var animal in animales)
-			{
-				if (animal.GetType().ToString() == "WebAPIZoologico.Models.AnimalHerbivoro")
-				{
-					hierbasTotales += animal.CalcularAlimento();
-				}
-				if (animal.GetType().ToString() == "WebAPIZoologico.Models.AnimalReptil")
-				{
-					hierbasTotales += animal.CalcularAlimento() / 2;
-				}
-			}
-			Assert.AreEqual(hierbasTotales, 11982,855D);
-
-		}
 
 		#region Mock Factory
 		private List<AnimalCarnivoro> MockFactoryCarnivoros()
